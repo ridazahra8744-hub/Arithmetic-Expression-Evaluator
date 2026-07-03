@@ -1,10 +1,37 @@
-# Arithmetic Expression Evaluator
 
-A lightweight and efficient tool designed to parse, validate, and evaluate mathematical expressions provided as strings. It accurately handles operator precedence, parentheses, and basic arithmetic functions.
+// Convert infix expression to postfix
+string infixToPostfix(const string& expr) {
+    stack<char> ops;
+    string postfix;
+    for (size_t i = 0; i < expr.length(); i++) {
+        char c = expr[i];
 
- Key Features:
-* **Expression Parsing:** Converts standard infix expressions (e.g., `3 + 5 * (2 - 1)`) into postfix (RPN) or an Abstract Syntax Tree (AST) for evaluation.
-* **Operator Precedence:** Strictly follows BODMAS/PEMDAS rules for correct calculation orders.
-* **Input Validation:** Automatically detects syntax errors, mismatched parentheses, and invalid characters before evaluation.
-* **Error Handling:** Provides clear feedback for runtime errors like division by zero.
-* **Multi-Digit & Decimal Support:** Accurately processes both integers and floating-point numbers.
+        // Skip spaces
+        if (c == ' ') continue;
+
+        // If operand, add to postfix
+        if (isdigit(c)) {
+            postfix += c;
+        }
+        // If '(', push to stack
+        else if (c == '(') {
+            ops.push(c);
+        }
+        // If ')', pop until '('
+        else if (c == ')') {
+            while (!ops.empty() && ops.top() != '(') {
+                postfix += ops.top();
+                ops.pop();
+            }
+            ops.pop(); // remove '('
+        }
+        // If operator
+        else {
+            while (!ops.empty() && precedence(ops.top()) >= precedence(c)) {
+                postfix += ops.top();
+                ops.pop();
+            }
+            ops.push(c);
+        }
+    }
+
