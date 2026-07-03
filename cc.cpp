@@ -22,3 +22,23 @@ int main() {
     cout << "Enter arithmetic expression: ";
 
     getline(cin, expr);
+    try {
+
+    string postfix = infixToPostfix(expr);
+
+    cout << "Postfix Expression: " << postfix << endl;
+
+    int result = evaluatePostfix(postfix);
+
+    cout << "Result: " << result << endl;
+
+}
+catch (const exception& e) {
+
+    cout << "Error: " << e.what() << endl;
+
+}
+
+return 0;
+
+}
