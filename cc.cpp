@@ -15,4 +15,10 @@ else {
 
 return values.top();
 }
+int main() {
 
+    string expr;
+
+    cout << "Enter arithmetic expression: ";
+
+    getline(cin, expr);
