@@ -11,4 +11,8 @@ else {
     values.pop();
     values.push(applyOp(val1, val2, c));
 }
+}
+
+return values.top();
+}
 
