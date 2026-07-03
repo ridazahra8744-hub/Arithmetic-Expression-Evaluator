@@ -9,5 +9,6 @@ else {
     values.pop();
     int val1 = values.top();
     values.pop();
-    
+    values.push(applyOp(val1, val2, c));
+}
 
