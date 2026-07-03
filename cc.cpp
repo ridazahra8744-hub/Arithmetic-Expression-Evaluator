@@ -7,3 +7,7 @@ int evaluatePostfix(const string& postfix) {
 else {
     int val2 = values.top();
     values.pop();
+    int val1 = values.top();
+    values.pop();
+    
+
