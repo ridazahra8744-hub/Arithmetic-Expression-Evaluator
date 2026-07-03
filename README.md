@@ -1,37 +1,32 @@
+#include <iostream>
+#include <stack>
+#include <string>
+#include <cctype>
+#include <sstream>
+#include <vector>
+#include <map>
 
-// Convert infix expression to postfix
-string infixToPostfix(const string& expr) {
-    stack<char> ops;
-    string postfix;
-    for (size_t i = 0; i < expr.length(); i++) {
-        char c = expr[i];
+using namespace std;
 
-        // Skip spaces
-        if (c == ' ') continue;
+// Function to check operator precedence
+int precedence(char op) {
+    if (op == '+' || op == '-') return 1;
+    if (op == '*' || op == '/') return 2;
+    return 0;
+}
 
-        // If operand, add to postfix
-        if (isdigit(c)) {
-            postfix += c;
-        }
-        // If '(', push to stack
-        else if (c == '(') {
-            ops.push(c);
-        }
-        // If ')', pop until '('
-        else if (c == ')') {
-            while (!ops.empty() && ops.top() != '(') {
-                postfix += ops.top();
-                ops.pop();
+// Function to perform arithmetic operations
+int applyOp(int a, int b, char op) {
+    switch (op) {
+        case '+': return a + b;
+        case '-': return a - b;
+        case '*': return a * b;
+        case '/': 
+            if (b == 0) {
+                throw runtime_error("Division by zero error");
             }
-            ops.pop(); // remove '('
-        }
-        // If operator
-        else {
-            while (!ops.empty() && precedence(ops.top()) >= precedence(c)) {
-                postfix += ops.top();
-                ops.pop();
-            }
-            ops.push(c);
-        }
+            return a / b;
     }
+    return 0;
+}
 
